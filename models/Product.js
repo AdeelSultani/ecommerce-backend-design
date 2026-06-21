@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema({
   },
   image: {
     type: String, 
-    default: 'https://via.placeholder.com/400x400?text=No+Image'
+    default: ''
   },
   description: {
     type: String,

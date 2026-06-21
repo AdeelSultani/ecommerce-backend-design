@@ -13,6 +13,7 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/products', require('./routes/products'));
+app.use('/uploads', express.static('uploads'));
 
 // Test Route
 app.get('/', (req, res) => {
@@ -20,13 +21,13 @@ app.get('/', (req, res) => {
 });
 
 // MongoDB Connect
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT ;
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log(' MongoDB Connected!');
-    app.listen(PORT, () => {
-      console.log(` Server running on port ${PORT}`);
-    });
+    app.listen(PORT, '0.0.0.0', () => {
+     console.log('Server running on port 5000');
+   });
   })
   .catch(err => {
     console.log(' DB Error:', err.message);
