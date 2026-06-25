@@ -25,7 +25,6 @@ router.get('/featured', async (req, res) => {
   }
 });
 
-// GET - Single product
 router.get('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -36,7 +35,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// POST - naya product, image ke saath
+
 router.post('/', authMiddleware, isAdmin, upload.single('image'), async (req, res) => {
   try {
     const { name, price, category, description, stock, featured } = req.body;
@@ -44,8 +43,7 @@ router.post('/', authMiddleware, isAdmin, upload.single('image'), async (req, re
     if (!name || !price || !category) {
       return res.status(400).json({ error: 'Naam, price and category Required' });
     }
-
-    // ✅ agar file aayi hai to uska path nikalo
+ 
     const imagePath = req.file ? `uploads/${req.file.filename}` : '';
 
     const product = new Product({
@@ -65,7 +63,7 @@ router.post('/', authMiddleware, isAdmin, upload.single('image'), async (req, re
   }
 });
 
-// PUT - update, agar nayi image bheji to wo bhi update ho
+
 router.put('/:id', authMiddleware, isAdmin, upload.single('image'), async (req, res) => {
   try {
     const updateData = { ...req.body };
